@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#292929"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        tools:ignore="MissingConstraints" >
+
+
+    </FrameLayout>
+
+    <!--<android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="682dp"
+        tools:ignore="MissingConstraints">
+
+
+        <ListView
+            android:id="@+id/ListView"
+            android:layout_width="match_parent"
+            android:layout_height="680dp"
+
+            android:background="#292928"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints,NotSibling" />
+
+    </android.support.constraint.ConstraintLayout>-->
+
+    <!-- <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#363636"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-16dp">
+
+        <Button
+            android:id="@+id/settings"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="#363636"
+            android:foreground="@android:drawable/ic_menu_preferences"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="0dp"
+            tools:targetApi="m" />
+
+        <Button
+            android:id="@+id/home"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginLeft="160dp"
+            android:background="#363636"
+            android:foreground="@drawable/ic_action_home"
+            app:layout_constraintStart_toStartOf="@+id/settings"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <Button
+            android:id="@+id/favorite"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="252dp"
+            android:layout_marginLeft="252dp"
+            android:background="#363636"
+            android:foreground="@android:drawable/btn_star"
+            app:layout_constraintStart_toStartOf="@+id/settings"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <Button
+            android:id="@+id/chat"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="340dp"
+            android:layout_marginLeft="340dp"
+            android:background="#363636"
+            android:foreground="@android:drawable/sym_action_chat"
+            app:layout_constraintStart_toStartOf="@+id/settings"
+            tools:layout_editor_absoluteY="0dp" />
+
+    </android.support.constraint.ConstraintLayout>-->
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        style="@style/Widget.Design.BottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@drawable/layout_border2"
+        app:itemIconTint="@color/browser_actions_title_color"
+        app:itemTextColor="@color/browser_actions_title_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_navigation_main"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        />
+
+</android.support.constraint.ConstraintLayout>

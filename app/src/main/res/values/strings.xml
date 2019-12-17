@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name" translatable="false">Mint Mind</string>
+    <integer name="com_vk_sdk_AppId">6984087</integer>
+    <string name="facebook_app_id" translatable="false">591830771585042</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb591830771585042</string>
+    <string name="Chat" translatable="false">Chat</string>
+    <string name="Home" translatable="false">Home</string>
+    <string name="Profile" translatable="false">Profile</string>
+    <string name="Favorite" translatable="false">Favorite</string>
+    <string name="profile_name" translatable="false">Илья Гаврилик</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+
+</resources>
