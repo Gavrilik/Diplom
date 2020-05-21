@@ -1,13 +1,13 @@
 package com.gavrilik.ads.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.gavrilik.ads.R;
-import com.gavrilik.ads.data.Profile;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -34,10 +34,10 @@ public class EditProfile extends AppCompatActivity {
         String about = aboutText.getText().toString();
 
 
-        Profile profile = new Profile(name, secondName, city,email,number,about);
+        //User profile = new User(name, secondName, city, email, number, about);
 
         Intent intent = new Intent(this, com.gavrilik.ads.fragment.Profile.class);
-        intent.putExtra(Profile.class.getSimpleName(), profile);
+        //intent.putExtra(User.class.getSimpleName(), profile);
         startActivity(intent);
     }
 }

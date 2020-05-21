@@ -2,16 +2,17 @@ package com.gavrilik.ads.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.gavrilik.ads.R;
 import com.gavrilik.ads.adapter.AdsAdapter;
-import com.gavrilik.ads.data.Ads;
+import com.gavrilik.ads.model.Ads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class MyAds extends AppCompatActivity implements View.OnClickListener {
     Button fvr;
 
     private void setInitialData() {
-        ads.add(new com.gavrilik.ads.data.Ads(2, "Илья", "Изделия из кожи", 4.3, R.drawable.image_2));
+        //ads.add(new com.gavrilik.ads.data.Ads(2, "Илья", "Изделия из кожи", 4, "http://i.imgur.com/DvpvklR.png"));
     }
 
     @SuppressLint("WrongViewCast")
@@ -40,10 +41,10 @@ public class MyAds extends AppCompatActivity implements View.OnClickListener {
         listView = findViewById(R.id.myAdsList);
         fvr = findViewById(R.id.addFvr);
         // создаем адаптер
-        adsAdapter = new AdsAdapter(this, R.layout.adapter_ads, ads);
+        //adsAdapter = new AdsAdapter(this, R.layout.adapter_ads, ads);
         // устанавливаем адаптер
 
-        listView.setAdapter(adsAdapter);
+        //listView.setAdapter(adsAdapter);
 
 
     }

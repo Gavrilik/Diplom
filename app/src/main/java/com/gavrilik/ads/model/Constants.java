@@ -1,4 +1,4 @@
-package com.gavrilik.ads.data;
+package com.gavrilik.ads.model;
 
 public class Constants {
 

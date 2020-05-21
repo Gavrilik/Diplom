@@ -3,11 +3,12 @@ package com.gavrilik.ads.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 import com.gavrilik.ads.R;
 import com.gavrilik.ads.activity.EditProfile;
@@ -35,7 +36,7 @@ public class Profile extends Fragment implements View.OnClickListener {
 
     }
 
-    public static Profile newInstance() {
+    public static Fragment newInstance() {
         return new Profile();
     }
 
@@ -50,7 +51,7 @@ public class Profile extends Fragment implements View.OnClickListener {
 
         myAds = view.findViewById(R.id.myAds);
         myAds.setOnClickListener(this);
-        editPrf= view.findViewById(R.id.edit_btn);
+        editPrf = view.findViewById(R.id.edit_btn);
         editPrf.setOnClickListener(this);
         return view;
     }

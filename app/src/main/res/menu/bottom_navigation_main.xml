@@ -1,31 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior">
 
 
-    <item
-        android:id="@+id/action_home"
-        android:enabled="true"
-        android:icon="@drawable/ic_action_home"
-        android:title="@string/Home"
-        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/action_favorite"
         android:enabled="true"
         android:icon="@drawable/favorite"
-        android:title="@string/Favorite"
+        android:title="@string/fragment_favorite"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_seacrh"
+        android:title="@string/fragment_search"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_home"
+        android:title="@string/fragment_home"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_chat"
         android:enabled="true"
         android:icon="@drawable/ic_action_chat"
-        android:title="@string/Chat"
+        android:title="@string/fragment_chat"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_profile"
         android:enabled="true"
         android:icon="@drawable/ic_action_profile"
-        android:title="@string/Profile"
+        android:title="@string/fragment_profile"
         app:showAsAction="ifRoom" />
 
 

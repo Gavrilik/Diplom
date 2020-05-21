@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "503051904365",
+    "firebase_url": "https://adsapp-91673.firebaseio.com",
+    "project_id": "adsapp-91673",
+    "storage_bucket": "adsapp-91673.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503051904365:android:31ab6efda2b738e0afa664",
+        "android_client_info": {
+          "package_name": "com.gavrilik.ads"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503051904365-47oapqsm450bjiu29du50l1mtkfuf6rm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjHns3KzqKvKJUat5J4Bq2JwB6_BVei9s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503051904365-47oapqsm450bjiu29du50l1mtkfuf6rm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

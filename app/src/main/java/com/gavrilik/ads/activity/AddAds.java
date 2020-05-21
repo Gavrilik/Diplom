@@ -4,17 +4,18 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.gavrilik.ads.adapter.AdsAdapter;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.gavrilik.ads.R;
-import com.gavrilik.ads.data.Ads;
+import com.gavrilik.ads.adapter.AdsAdapter;
+import com.gavrilik.ads.model.Ads;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,9 +30,8 @@ public class AddAds extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ads);
 
-
         List<Ads> list = new ArrayList<>();
-        EditText addSeller = findViewById(R.id.seller_name);
+        EditText addSeller = findViewById(R.id.add_product_name);
         EditText addDescription = findViewById(R.id.add_description);
         Button loadImgBtn = findViewById(R.id.load_img);
         loadImgBtn.setOnClickListener(this);
@@ -62,19 +62,19 @@ public class AddAds extends AppCompatActivity implements View.OnClickListener {
 
         AdsAdapter adapter = null;
         ArrayList<Ads> list = new ArrayList<>();
-        EditText addSeller = findViewById(R.id.seller_name);
+        EditText addSeller = findViewById(R.id.add_product_name);
         EditText addDescription = findViewById(R.id.add_description);
         Integer id = null;
         String seller = addSeller.getText().toString();
         String description = addDescription.getText().toString();
         Intent intent = new Intent(this, MainActivity.class);
 
-        if (!seller.isEmpty() && !description.isEmpty()) {
-            list.add(new Ads(id,seller, description, 0.0, R.drawable.image_1));
+       /* if (!seller.isEmpty() && !description.isEmpty()) {
+            list.add(new Ads(id, seller, description, 0, R.drawable.image_1));
             intent.putExtra("name", addSeller.getText().toString());
             assert false;
             adapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     @Override

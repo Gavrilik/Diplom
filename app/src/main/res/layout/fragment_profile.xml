@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,7 +7,7 @@
     tools:context=".fragment.Profile">
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="425dp"
         android:layout_height="518dp"
@@ -15,7 +15,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-7dp">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="271dp"
             android:layout_height="165dp"
@@ -40,7 +40,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"
-                android:text="Илья"
+                android:text="@string/profile_name"
                 android:textColor="@color/vk_share_link_color"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +54,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="16dp"
-                android:text="Гаврилик"
+                android:text="@string/profile_secondName"
                 android:textColor="@color/vk_share_link_color"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/profile_name"
@@ -96,7 +96,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="12dp"
-                android:text="Гродно"
+                android:text="@string/profile_city"
                 android:textColor="@color/vk_share_link_color"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
@@ -110,7 +110,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_marginLeft="14dp"
                 android:layout_marginTop="12dp"
-                android:text="ilya.gavrilik.1998@gmail.com"
+                android:text="@string/profile_email"
                 android:textColor="@color/vk_share_link_color"
                 app:layout_constraintStart_toEndOf="@+id/textView7"
                 app:layout_constraintTop_toBottomOf="@+id/profile_city" />
@@ -128,13 +128,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/profile_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="12dp"
-                android:text="+375298852785"
+                android:text="@string/profile_phone"
                 android:textColor="@color/vk_share_link_color"
                 app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/profile_email" />
@@ -157,7 +157,7 @@
                 app:layout_constraintStart_toEndOf="@+id/profile_name"
                 app:layout_constraintTop_toTopOf="parent" />
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/textView2"
@@ -235,7 +235,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/login_button" />
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout3"
             android:layout_width="271dp"
             android:layout_height="117dp"
@@ -265,20 +265,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/prsnInfo"
+                android:id="@+id/profile_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
                 android:layout_marginTop="12dp"
-                android:text="Информация пока отсутствует."
+                android:text="@string/profile_description"
                 android:textColor="@color/vk_share_link_color"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.052"
                 app:layout_constraintStart_toEndOf="@+id/aboutProfile"
                 app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
