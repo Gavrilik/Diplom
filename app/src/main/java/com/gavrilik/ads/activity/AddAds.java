@@ -6,24 +6,55 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.gavrilik.ads.R;
-import com.gavrilik.ads.adapter.AdsAdapter;
 import com.gavrilik.ads.model.Ads;
+import com.gavrilik.ads.uploadinfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AddAds extends AppCompatActivity implements View.OnClickListener {
 
     static final int GALLERY_REQUEST = 1;
+
+    private EditText addName, addDescription, addPrice;
+    private uploadinfo imageUrl;
+    private Button loadImgBtn, saveAds;
+    private ImageView imageView;
+
+
+    private long adsId = 0;
+    private Ads ads;
+
+    Uri FilePathUri;
+    int Image_Request_Code = 7;
+
+    private FirebaseDatabase database;
+    private String ADS_KEY = "Ads";
+    private DatabaseReference mRef;
+    FirebaseStorage storage;
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +62,36 @@ public class AddAds extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_add_ads);
 
         List<Ads> list = new ArrayList<>();
-        EditText addSeller = findViewById(R.id.add_product_name);
-        EditText addDescription = findViewById(R.id.add_description);
-        Button loadImgBtn = findViewById(R.id.load_img);
+        addName = findViewById(R.id.add_product_name);
+        addDescription = findViewById(R.id.add_description);
+        addPrice = findViewById(R.id.add_product_price);
+        imageView = findViewById(R.id.add_img);
+        loadImgBtn = findViewById(R.id.load_img);
         loadImgBtn.setOnClickListener(this);
-        Button saveAds = findViewById(R.id.save_ads);
+        saveAds = findViewById(R.id.save_ads);
         saveAds.setOnClickListener(this);
+
+
+        /*База данных*/
+        database = FirebaseDatabase.getInstance();
+        mRef = database.getReference(ADS_KEY);
+        /*Хранилище*/
+        storage = FirebaseStorage.getInstance();
+        storageReference = storage.getReference();
+
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    adsId = (dataSnapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -45,9 +100,10 @@ public class AddAds extends AppCompatActivity implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.load_img:
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Image"), Image_Request_Code);
                 break;
             case R.id.save_ads:
                 add();
@@ -60,29 +116,66 @@ public class AddAds extends AppCompatActivity implements View.OnClickListener {
     @SuppressLint("Assert")
     public void add() {
 
-        AdsAdapter adapter = null;
-        ArrayList<Ads> list = new ArrayList<>();
-        EditText addSeller = findViewById(R.id.add_product_name);
-        EditText addDescription = findViewById(R.id.add_description);
-        Integer id = null;
-        String seller = addSeller.getText().toString();
-        String description = addDescription.getText().toString();
-        Intent intent = new Intent(this, MainActivity.class);
 
-       /* if (!seller.isEmpty() && !description.isEmpty()) {
-            list.add(new Ads(id, seller, description, 0, R.drawable.image_1));
-            intent.putExtra("name", addSeller.getText().toString());
-            assert false;
-            adapter.notifyDataSetChanged();
-        }*/
+        @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        Date date = new Date();
+        String strDate = dateFormat.format(date);
+        String name = addName.getText().toString();
+        String description = addDescription.getText().toString();
+        float price = Float.parseFloat(addPrice.getText().toString());
+
+        if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(description) && FilePathUri != null) {
+
+            StorageReference storageReference2 = storageReference.child(String.valueOf(adsId+1));
+            storageReference2.putFile(FilePathUri)
+                    .addOnSuccessListener(taskSnapshot -> {
+
+                        storageReference.child(String.valueOf(adsId+1)).getDownloadUrl().addOnSuccessListener(uri -> {
+                            String imagePath = uri.toString();
+                            ads = new Ads(strDate, name, description, price, imagePath);
+                            mRef.child(String.valueOf(adsId + 1)).setValue(ads);
+                        }).addOnFailureListener(e -> Toast.makeText(getApplicationContext(), "Failed to get an Uri", Toast.LENGTH_LONG).show());
+
+                        Toast.makeText(getApplicationContext(), "Image Uploaded Successfully ", Toast.LENGTH_LONG).show();
+                        //String uploadImageUrl = Objects.requireNonNull(taskSnapshot.getUploadSessionUri()).normalizeScheme().toString();
+                        String uploadImageUrl = storageReference2.getDownloadUrl().toString();
+
+                        //ads = new Ads(strDate, name, description, price, uploadImageUrl);
+                        //mRef.child(String.valueOf(adsId + 1)).setValue(ads);
+                    });
+
+        } else {
+            Toast.makeText(this, "Пустая строка!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Image_Request_Code && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            FilePathUri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), FilePathUri);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+    }
+/*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
         Bitmap bitmap = null;
-        ImageView imageView = findViewById(R.id.imageView);
+        ImageView imageView = findViewById(R.id.add_img);
 
         if (requestCode == GALLERY_REQUEST) {
             if (resultCode == RESULT_OK) {
@@ -95,5 +188,5 @@ public class AddAds extends AppCompatActivity implements View.OnClickListener {
                 imageView.setImageBitmap(bitmap);
             }
         }
-    }
+    }*/
 }

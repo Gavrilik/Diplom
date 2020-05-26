@@ -23,7 +23,7 @@ import java.util.Locale;
 
 public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.AdsViewHolder> {
 
-    private static final String ADS_RESPONSE_FORMAT = "EEE MMM dd HH:mm:ss ZZZZZ yyyy"; // Thu Oct 26 07:31:08 +0000 2017
+    private static final String ADS_RESPONSE_FORMAT = "yyyy/MM/dd HH:mm"; // Thu Oct 26 07:31:08 +0000 2017
     private static final String MONTH_DAY_FORMAT = "MMM d"; // Oct 26
 
     private List<Ads> adsList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.AdsViewHolder> {
             super(itemView);
             adsImageview = itemView.findViewById(R.id.adapter_image);
             adsNameView = itemView.findViewById(R.id.adapter_seller_name);
-            adsDescriptionView = itemView.findViewById(R.id.adapter_description);
+            adsDescriptionView = itemView.findViewById(R.id.adapter_product_name);
             adsRatingView = itemView.findViewById(R.id.adapter_rating);
             createDateView = itemView.findViewById(R.id.adapter_createDate);
 
@@ -89,9 +89,8 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.AdsViewHolder> {
 
         void bind(Ads ads) {
 
-            adsNameView.setText(ads.getUser().getName());
             adsDescriptionView.setText(ads.getDescription());
-            adsRatingView.setText(String.valueOf(ads.getRating()));
+            //adsRatingView.setText(String.valueOf(ads.getRating()));
 
             String creationDateFormatted = getFormattedDate(ads.getCreationDate());
             createDateView.setText(creationDateFormatted);
@@ -110,7 +109,7 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.AdsViewHolder> {
 
         private String getFormattedDate(String rawDate) {
             SimpleDateFormat utcFormat = new SimpleDateFormat(ADS_RESPONSE_FORMAT, Locale.ROOT);
-            SimpleDateFormat displayedFormat = new SimpleDateFormat(MONTH_DAY_FORMAT, Locale.getDefault());
+            SimpleDateFormat displayedFormat = new SimpleDateFormat(ADS_RESPONSE_FORMAT, Locale.getDefault());
             try {
                 Date date = utcFormat.parse(rawDate);
                 return displayedFormat.format(date);

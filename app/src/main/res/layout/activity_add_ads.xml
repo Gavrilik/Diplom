@@ -23,7 +23,7 @@
         tools:ignore="MissingConstraints" />
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imageView"
+        android:id="@+id/add_img"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
@@ -52,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/add_img"
         tools:ignore="MissingConstraints" />
 
     <ScrollView
@@ -70,8 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="Описание товара"
             android:inputType="textPersonName"
-            android:text="Описание Товара"
             android:textColor="@android:color/darker_gray"
             tools:ignore="MissingConstraints" />
     </ScrollView>
@@ -80,17 +80,12 @@
         android:id="@+id/add_product_name"
         android:layout_width="370dp"
         android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
+        android:hint="Название товара"
         android:inputType="textPersonName"
-        android:text="Наименование Товара"
         android:textColor="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/load_img"
         tools:ignore="MissingConstraints" />
@@ -110,5 +105,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/add_product_price"
+        android:layout_width="370dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Цена"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_product_description" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

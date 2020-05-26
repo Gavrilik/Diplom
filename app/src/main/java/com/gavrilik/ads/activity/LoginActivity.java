@@ -1,5 +1,6 @@
 package com.gavrilik.ads.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -39,10 +40,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-
                 } else {
                     // User is signed out
-
                 }
 
             }
@@ -59,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         if (view.getId() == R.id.btn_signIn) {
             signin(ETemail.getText().toString(), ETpassword.getText().toString());
+
         } else if (view.getId() == R.id.btn_registration) {
             registration(ETemail.getText().toString(), ETpassword.getText().toString());
         }
@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(LoginActivity.this, "Aвторизация успешна", Toast.LENGTH_SHORT).show();
+                   Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                   startActivity(intent);
                 } else
                     Toast.makeText(LoginActivity.this, "Aвторизация провалена", Toast.LENGTH_SHORT).show();
 

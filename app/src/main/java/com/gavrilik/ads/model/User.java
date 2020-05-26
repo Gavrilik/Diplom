@@ -1,11 +1,6 @@
 package com.gavrilik.ads.model;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import java.io.Serializable;
-import java.util.Objects;
 
 public class User implements Serializable {
     private long id;
@@ -13,17 +8,19 @@ public class User implements Serializable {
     private String name;
     private String secondName;
     private String description;
-    private String location;
+    private String country;
+    private String city;
     private String email;
     private String number;
 
-    public User(long id, String imageUrl, String name, String secondName, String description, String location, String email, String number) {
+    public User(long id, String imageUrl, String name, String secondName, String description, String country, String city, String email, String number) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.name = name;
         this.secondName = secondName;
         this.description = description;
-        this.location = location;
+        this.country = country;
+        this.city = city;
         this.email = email;
         this.number = number;
     }
@@ -68,12 +65,20 @@ public class User implements Serializable {
         this.description = description;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCountry() {
+        return country;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getEmail() {
@@ -90,27 +95,5 @@ public class User implements Serializable {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                imageUrl.equals(user.imageUrl) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(secondName, user.secondName) &&
-                description.equals(user.description) &&
-                location.equals(user.location) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(number, user.number);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, imageUrl, name, secondName, description, location, email, number);
     }
 }

@@ -16,10 +16,14 @@ import com.gavrilik.ads.R;
 import com.gavrilik.ads.activity.MoreInfo;
 import com.gavrilik.ads.adapter.AdsAdapter;
 import com.gavrilik.ads.model.Ads;
-import com.gavrilik.ads.model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -35,7 +39,12 @@ public class AdsFragment extends Fragment {
 
     private RecyclerView adsRecyclerView;
     private AdsAdapter adsAdapter;
+    private ArrayList<Ads> listAds = new ArrayList<>();
     Ads ads = new Ads();
+
+    private FirebaseDatabase database;
+    private String ADS_KEY = "Ads";
+    private DatabaseReference mRef;
 
 
     public static Fragment newInstance() {
@@ -44,18 +53,14 @@ public class AdsFragment extends Fragment {
 
     private List<Ads> getAdsInfo() {
         return Arrays.asList(
-                new Ads(getUser(), 1L, "Thu Mar 25 07:31:08 +0000 2020",
-                        "Подарочные наборы", 5, "http://i.imgur.com/DvpvklR.png"),
-                new Ads(getUser(), 2L, "Thu Jun 19 07:31:08 +0000 2020",
-                        "Изделия из кожи", 4, "http://i.imgur.com/DvpvklR.png"),
-                new Ads(getUser(), 2L, "Thu Jun 19 07:31:08 +0000 2020",
-                        "Изделия из кожи", 4, "http://i.imgur.com/DvpvklR.png"),
-                new Ads(getUser(), 2L, "Thu Jun 19 07:31:08 +0000 2020",
-                        "Изделия из кожи", 4, "http://i.imgur.com/DvpvklR.png"),
-                new Ads(getUser(), 2L, "Thu Jun 19 07:31:08 +0000 2020",
-                        "Изделия из кожи", 4, "http://i.imgur.com/DvpvklR.png"),
-                new Ads(getUser(), 3L, "Thu Feb 23 07:31:08 +0000 2020",
-                        "Маски на заказ", 3, "http://i.imgur.com/DvpvklR.png")
+                new Ads("Thu Mar 25 07:31:08 +0000 2020",
+                        "Привет", "Подарочные наборы", 10, "https://firebasestorage.googleapis.com/v0/b/adsapp-91673.appspot.com/o/forest.jpg?alt=media&token=9990cbf0-ab8f-48a7-964b-cbd75e3398f6"),
+                new Ads("Thu Mar 25 07:31:08 +0000 2020",
+                        "Подарочные наборы", "awdawd", 10000, "http://i.imgur.com/DvpvklR.png"),
+                new Ads("Thu Mar 25 07:31:08 +0000 2020",
+                        "Подарочные наборы", "awdawd", 1732, "http://i.imgur.com/DvpvklR.png"),
+                new Ads("Thu Mar 25 07:31:08 +0000 2020",
+                        "Подарочные наборы", "awdawd", 754, "http://i.imgur.com/DvpvklR.png")
         );
 
     }
@@ -66,29 +71,25 @@ public class AdsFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_ads, container, false);
         adsImageview = view.findViewById(R.id.adapter_image);
-        adsNameView = view.findViewById(R.id.add_product_name);
-        adsDescriptionView = view.findViewById(R.id.adapter_description);
+        adsNameView = view.findViewById(R.id.adapter_seller_name);
+        adsDescriptionView = view.findViewById(R.id.adapter_product_name);
         adsRatingView = view.findViewById(R.id.adapter_rating);
         createDateView = view.findViewById(R.id.adapter_createDate);
-        /*setInitialData();
-        listView = view.findViewById(R.id.ListView);
-                fvr = view.findViewById(R.id.addFvr);
-                // создаем адаптер
-                adsAdapter = new AdsAdapter(getActivity(), R.layout.adapter_ads, ads);
-                // устанавливаем адаптер
-
-                listView.setAdapter(adsAdapter);*/
-
+        /*Инициализация листа*/
         adsRecyclerView = view.findViewById(R.id.adsList);
         adsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        /*adsAdapter = new AdsAdapter();
-        adsRecyclerView.setAdapter(adsAdapter);*/
+        /*Initialization database*/
+        database = FirebaseDatabase.getInstance();
+        //mRef = database.getReference(ADS_KEY);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
 
         AdsAdapter.OnAdsClickListener onAdsClickListener = new AdsAdapter.OnAdsClickListener() {
             @Override
             public void onAdsClick(Ads ads) {
                 Intent intent2 = new Intent(getContext(), MoreInfo.class);
-                intent2.putExtra(AdsFragment.ADS_ID, ads.getId());
+                //intent2.putExtra(AdsFragment.ADS_ID, ads.getId());
                 getContext().startActivity(intent2);
             }
 
@@ -97,17 +98,38 @@ public class AdsFragment extends Fragment {
         adsAdapter = new AdsAdapter(onAdsClickListener);
         adsRecyclerView.setAdapter(adsAdapter);
 
-
-        loadAds();
-        loadUserInfo();
+        getDataFromDB();
+        //loadAds();
+        //loadUserInfo();
         return view;
     }
 
-    private void loadAds() {
+    private void getDataFromDB() {
+        database.getReference().child(ADS_KEY).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                listAds.removeAll(listAds);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Ads ads = snapshot.getValue(Ads.class);
+                    listAds.add(ads);
+                    adsAdapter.setItems(listAds);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        adsAdapter.notifyDataSetChanged();
+        //mRef.addValueEventListener(vListener);
+    }
+
+   /* private void loadAds() {
         Collection<com.gavrilik.ads.model.Ads> ads = getAdsInfo();
         adsAdapter.setItems(ads);
     }
-
 
     private void loadUserInfo() {
         User user = getUser();
@@ -126,9 +148,10 @@ public class AdsFragment extends Fragment {
                 "Гаврилик",
                 "Через некоторое время Джерри решает присоединиться к команде, занимающейся раскрытием преступлений, совершаемых на просторах глобальной паутины.",
                 "Belarus",
+                "Grodno",
                 "Ilya.gavrilik.1998@gmail.com",
                 "+375(29)885-27-85"
         );
     }
-
+*/
 }

@@ -3,39 +3,32 @@ package com.gavrilik.ads.model;
 
 public class Ads {
 
-    private User user;
-    private Long id;
+    //private User user;
+
     private String creationDate;
+    private String name;
     private String description;
-    private int rating;
+    private float price;
     private String imageUrl;
+    //private String category;
 
     public Ads() {
     }
 
-    public Ads(User user, Long id, String creationDate, String description, int rating, String imageUrl) {
-        this.user = user;
-        this.id = id;
+    public Ads(String creationDate, String name, String description, float price) {
         this.creationDate = creationDate;
+        this.name = name;
         this.description = description;
-        this.rating = rating;
+        this.price = price;
+    }
+
+    public Ads(String creationDate, String name, String description, float price, String imageUrl) {
+
+        this.creationDate = creationDate;
+        this.name = name;
+        this.description = description;
+        this.price = price;
         this.imageUrl = imageUrl;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getCreationDate() {
@@ -46,22 +39,6 @@ public class Ads {
         this.creationDate = creationDate;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -70,4 +47,27 @@ public class Ads {
         this.imageUrl = imageUrl;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
 }
